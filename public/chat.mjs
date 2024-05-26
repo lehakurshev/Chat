@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Make connection
-    var socket = io.connect('http://192.168.0.115:5000');
+    var socket = io.connect('http://95.82.250.107:5000');
 
     // Buttons and inputs
     var message = document.getElementById('message');
@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Emit message
     send_message.addEventListener('click', function() {
         socket.emit('new_message', { message: message.value });
+        location.reload(); // Обновление страницы после отправки сообщения
+        message.value = '';
     });
 
     // Listen on new_message

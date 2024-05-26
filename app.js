@@ -64,13 +64,28 @@ io.on('connection', (socket) => {
 
   socket.emit('chat_history', { history: fs.readFileSync(chatHistoryFile, 'utf8').split('\n') });
 
-  // Listen on new_message
+  // // Listen on new_message
+  // socket.on('new_message', (data) => {
+  //   // Broadcast the new message
+  //   io.sockets.emit('new_message', { message: data.message, username: socket.username });
+
+  //   // Save message to file
+  //   fs.appendFileSync(chatHistoryFile, `${socket.username.substr(0, 20)}: ${data.message.substr(0, 50)}\n`);
+  // });
   socket.on('new_message', (data) => {
-    // Broadcast the new message
-    io.sockets.emit('new_message', { message: data.message, username: socket.username });
+    // Broadcast the new message only to the same chat room
+    if (chatHistoryFile === 'chatHistory1.txt') {
+      io.of('/chat1').emit('new_message', { message: data.message, username: socket.username });
+    } else if (chatHistoryFile === 'chatHistory2.txt') {
+      io.of('/chat2').emit('new_message', { message: data.message, username: socket.username });
+    } else if (chatHistoryFile === 'chatHistory3.txt') {
+      io.of('/chat3').emit('new_message', { message: data.message, username: socket.username });
+    } else if (chatHistoryFile === 'chatHistory4.txt') {
+      io.of('/chat4').emit('new_message', { message: data.message, username: socket.username });
+    }
 
     // Save message to file
-    fs.appendFileSync(chatHistoryFile, `${socket.username.substr(0, 20)}: ${data.message.substr(0, 50)}\n`);
+    fs.appendFileSync(chatHistoryFile, `${ socket.username.substr(0, 20) }: ${ data.message.substr(0, 50) }\n`);
   });
 
   // Listen on typing
@@ -78,12 +93,6 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('typing', { username: socket.username });
   });
 });
-
-
-
-
-
-
 
 function clearChatHistory() {
   const fs = require('fs');
