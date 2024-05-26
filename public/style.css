@@ -1,0 +1,70 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+header {
+    text-align: center;
+    padding: 10px;
+    background-color: #8258FA;
+    color: white;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+#change_username, #input_zone {
+    border: 5px outset #8258FA;
+    margin: 10px;
+    padding: 10px;
+}
+
+#change_username {
+    background-color: #BCA9F5;
+}
+
+#chatroom {
+    border: 5px inset #8258FA;
+    height: 50vh;
+    overflow: auto;
+    margin: 10px;
+}
+
+#input_zone {
+    text-align: center;
+    background-color: #BCA9F5;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+}
+
+input[type="text"] {
+    font-family: 'Comfortaa', sans-serif;
+    width: 80%;
+    padding: 5px;
+    font-size: 16px;
+}
+
+button[type="button"] {
+    padding: 5px 15px;
+}
+
+.message {
+    margin: 5px 0;
+    padding: 10px;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 16px;
+}
+
+.message:nth-child(even) {
+    background-color: #81DAF5;
+}
+
+.message:nth-child(odd) {
+    background-color: #81BEF7;
+}
